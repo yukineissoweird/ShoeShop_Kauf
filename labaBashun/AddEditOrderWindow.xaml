@@ -1,0 +1,39 @@
+<Window x:Class="labaBashun.AddEditOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Заказ" Height="430" Width="520" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" Background="#F5F5F5">
+    <Grid Margin="22">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="165"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/><RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="HeaderText" Grid.ColumnSpan="2" Text="Добавление заказа" FontSize="21" FontWeight="Bold" Margin="0,0,0,18"/>
+
+        <TextBlock Grid.Row="1" Text="Артикул товара:" VerticalAlignment="Center" Margin="0,8"/>
+        <ComboBox x:Name="ArticleCombo" Grid.Row="1" Grid.Column="1" Height="28" Margin="0,5" DisplayMemberPath="Article" SelectedValuePath="Id"/>
+
+        <TextBlock Grid.Row="2" Text="Статус заказа:" VerticalAlignment="Center" Margin="0,8"/>
+        <ComboBox x:Name="StatusCombo" Grid.Row="2" Grid.Column="1" Height="28" Margin="0,5" DisplayMemberPath="Order_Status1" SelectedValuePath="Id_Order_Status"/>
+
+        <TextBlock Grid.Row="3" Text="Пункт выдачи:" VerticalAlignment="Center" Margin="0,8"/>
+        <ComboBox x:Name="PickupCombo" Grid.Row="3" Grid.Column="1" Height="28" Margin="0,5" DisplayMemberPath="DisplayAddress" SelectedValuePath="ID"/>
+
+        <TextBlock Grid.Row="4" Text="Дата заказа:" VerticalAlignment="Center" Margin="0,8"/>
+        <DatePicker x:Name="OrderDatePicker" Grid.Row="4" Grid.Column="1" Height="28" Margin="0,5"/>
+
+        <TextBlock Grid.Row="5" Text="Дата выдачи:" VerticalAlignment="Top" Margin="0,14"/>
+        <DatePicker x:Name="DeliveryDatePicker" Grid.Row="5" Grid.Column="1" Height="28" Margin="0,10" VerticalAlignment="Top"/>
+
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Сохранить" Width="105" Height="30" Margin="0,0,8,0" Click="SaveButton_Click"/>
+            <Button Content="Отмена" Width="90" Height="30" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8f922787afa8416b8ada929e0a553506" Name="Diagram1" ZoomLevel="102">
+        <EntityTypeShape EntityType="labaModel.Category" Width="1.5" PointX="1.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Employee" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Manufacturer" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Measure" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Order_Items" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Order_List" Width="1.5" PointX="7.125" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Order_Status" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Pickup_Point" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Product" Width="1.5" PointX="3.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Product_Name" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Role" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.Supplier" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="labaModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="labaModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Employee_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Order_List_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Product_Manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Product_Measure" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Order_List_Order_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Order_List_Order_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Order_List_Pickup_Point" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Order_List_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Product_Product_Name" ManuallyRouted="false" />
+        <AssociationConnector Association="labaModel.FK_Product_Supplier" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

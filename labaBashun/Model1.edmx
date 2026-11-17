@@ -1,0 +1,819 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище labaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID_category" />
+          </Key>
+          <Property Name="ID_category" Type="int" Nullable="false" />
+          <Property Name="Category_Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID_Employee" />
+          </Key>
+          <Property Name="ID_Employee" Type="int" Nullable="false" />
+          <Property Name="Id_Role" Type="int" />
+          <Property Name="Employee_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Login" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ID_Manufacturer" />
+          </Key>
+          <Property Name="ID_Manufacturer" Type="int" Nullable="false" />
+          <Property Name="Manufacturer_Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Measure">
+          <Key>
+            <PropertyRef Name="ID_measure" />
+          </Key>
+          <Property Name="ID_measure" Type="int" Nullable="false" />
+          <Property Name="Measure_Name" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="Id_Order_list" />
+          </Key>
+          <Property Name="Id_Order_list" Type="int" Nullable="false" />
+          <Property Name="ID_Order" Type="int" />
+          <Property Name="Article_Order" Type="varchar" MaxLength="20" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Order_List">
+          <Key>
+            <PropertyRef Name="Id_Order" />
+          </Key>
+          <Property Name="Id_Order" Type="int" Nullable="false" />
+          <Property Name="ID_Order_list" Type="int" />
+          <Property Name="Article_Order" Type="varchar" MaxLength="20" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Order_date" Type="date" />
+          <Property Name="Delivery_date" Type="date" />
+          <Property Name="Address_point_of_issue" Type="int" />
+          <Property Name="Client_Name" Type="int" />
+          <Property Name="Code" Type="int" />
+          <Property Name="Order_Status" Type="int" />
+        </EntityType>
+        <EntityType Name="Order_Status">
+          <Key>
+            <PropertyRef Name="Id_Order_Status" />
+          </Key>
+          <Property Name="Id_Order_Status" Type="int" Nullable="false" />
+          <Property Name="Order_Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pickup_Point">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Mail_Index" Type="varchar" MaxLength="20" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="Number_Address" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Article" Type="varchar" MaxLength="20" />
+          <Property Name="Product_Name" Type="int" />
+          <Property Name="Measure" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Supplier" Type="int" />
+          <Property Name="Manufacturer" Type="int" />
+          <Property Name="Category" Type="int" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Photo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product_Name">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Product_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID_Role" />
+          </Key>
+          <Property Name="ID_Role" Type="int" Nullable="false" />
+          <Property Name="Role_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID_provider" />
+          </Key>
+          <Property Name="ID_provider" Type="int" Nullable="false" />
+          <Property Name="Supplier_Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Employee_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="Client_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Order_Items">
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="0..1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Items">
+              <PropertyRef Name="Id_Order_list" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="ID_Order_list" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Order_Status">
+          <End Role="Order_Status" Type="Self.Order_Status" Multiplicity="0..1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Status">
+              <PropertyRef Name="Id_Order_Status" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="Order_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Pickup_Point">
+          <End Role="Pickup_Point" Type="Self.Pickup_Point" Multiplicity="0..1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pickup_Point">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="Address_point_of_issue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="Id_Order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID_category" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Manufacturer">
+          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="ID_Manufacturer" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Manufacturer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Measure">
+          <End Role="Measure" Type="Self.Measure" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measure">
+              <PropertyRef Name="ID_measure" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Measure" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Product_Name">
+          <End Role="Product_Name" Type="Self.Product_Name" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Name">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="ID_provider" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Supplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище labaModelContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measure" EntityType="Self.Measure" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_List" EntityType="Self.Order_List" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Status" EntityType="Self.Order_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pickup_Point" EntityType="Self.Pickup_Point" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Name" EntityType="Self.Product_Name" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_Role" Association="Self.FK_Employee_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Employee" Association="Self.FK_Order_List_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Order_Items" Association="Self.FK_Order_List_Order_Items">
+            <End Role="Order_Items" EntitySet="Order_Items" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Order_Status" Association="Self.FK_Order_List_Order_Status">
+            <End Role="Order_Status" EntitySet="Order_Status" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Pickup_Point" Association="Self.FK_Order_List_Pickup_Point">
+            <End Role="Pickup_Point" EntitySet="Pickup_Point" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Product" Association="Self.FK_Order_List_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Manufacturer" Association="Self.FK_Product_Manufacturer">
+            <End Role="Manufacturer" EntitySet="Manufacturer" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Measure" Association="Self.FK_Product_Measure">
+            <End Role="Measure" EntitySet="Measure" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Product_Name" Association="Self.FK_Product_Product_Name">
+            <End Role="Product_Name" EntitySet="Product_Name" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Supplier" Association="Self.FK_Product_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="labaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID_category" />
+          </Key>
+          <Property Name="ID_category" Type="Int32" Nullable="false" />
+          <Property Name="Category_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID_Employee" />
+          </Key>
+          <Property Name="ID_Employee" Type="Int32" Nullable="false" />
+          <Property Name="Id_Role" Type="Int32" />
+          <Property Name="Employee_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Employee_Role" FromRole="Employee" ToRole="Role" />
+          <NavigationProperty Name="Order_List" Relationship="Self.FK_Order_List_Employee" FromRole="Employee" ToRole="Order_List" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ID_Manufacturer" />
+          </Key>
+          <Property Name="ID_Manufacturer" Type="Int32" Nullable="false" />
+          <Property Name="Manufacturer_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Manufacturer" FromRole="Manufacturer" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Measure">
+          <Key>
+            <PropertyRef Name="ID_measure" />
+          </Key>
+          <Property Name="ID_measure" Type="Int32" Nullable="false" />
+          <Property Name="Measure_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Measure" FromRole="Measure" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="Id_Order_list" />
+          </Key>
+          <Property Name="Id_Order_list" Type="Int32" Nullable="false" />
+          <Property Name="ID_Order" Type="Int32" />
+          <Property Name="Article_Order" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Order_List" Relationship="Self.FK_Order_List_Order_Items" FromRole="Order_Items" ToRole="Order_List" />
+        </EntityType>
+        <EntityType Name="Order_List">
+          <Key>
+            <PropertyRef Name="Id_Order" />
+          </Key>
+          <Property Name="Id_Order" Type="Int32" Nullable="false" />
+          <Property Name="ID_Order_list" Type="Int32" />
+          <Property Name="Article_Order" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Order_date" Type="DateTime" Precision="0" />
+          <Property Name="Delivery_date" Type="DateTime" Precision="0" />
+          <Property Name="Address_point_of_issue" Type="Int32" />
+          <Property Name="Client_Name" Type="Int32" />
+          <Property Name="Code" Type="Int32" />
+          <Property Name="Order_Status" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Order_List_Employee" FromRole="Order_List" ToRole="Employee" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.FK_Order_List_Order_Items" FromRole="Order_List" ToRole="Order_Items" />
+          <NavigationProperty Name="Order_Status1" Relationship="Self.FK_Order_List_Order_Status" FromRole="Order_List" ToRole="Order_Status" />
+          <NavigationProperty Name="Pickup_Point" Relationship="Self.FK_Order_List_Pickup_Point" FromRole="Order_List" ToRole="Pickup_Point" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Order_List_Product" FromRole="Order_List" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order_Status">
+          <Key>
+            <PropertyRef Name="Id_Order_Status" />
+          </Key>
+          <Property Name="Id_Order_Status" Type="Int32" Nullable="false" />
+          <Property Name="Order_Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order_List" Relationship="Self.FK_Order_List_Order_Status" FromRole="Order_Status" ToRole="Order_List" />
+        </EntityType>
+        <EntityType Name="Pickup_Point">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Mail_Index" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Number_Address" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order_List" Relationship="Self.FK_Order_List_Pickup_Point" FromRole="Pickup_Point" ToRole="Order_List" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Article" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Product_Name" Type="Int32" />
+          <Property Name="Measure" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Supplier" Type="Int32" />
+          <Property Name="Manufacturer" Type="Int32" />
+          <Property Name="Category" Type="Int32" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Manufacturer1" Relationship="Self.FK_Product_Manufacturer" FromRole="Product" ToRole="Manufacturer" />
+          <NavigationProperty Name="Measure1" Relationship="Self.FK_Product_Measure" FromRole="Product" ToRole="Measure" />
+          <NavigationProperty Name="Order_List" Relationship="Self.FK_Order_List_Product" FromRole="Product" ToRole="Order_List" />
+          <NavigationProperty Name="Product_Name1" Relationship="Self.FK_Product_Product_Name" FromRole="Product" ToRole="Product_Name" />
+          <NavigationProperty Name="Supplier1" Relationship="Self.FK_Product_Supplier" FromRole="Product" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Product_Name">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Name1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Product_Name" FromRole="Product_Name" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID_Role" />
+          </Key>
+          <Property Name="ID_Role" Type="Int32" Nullable="false" />
+          <Property Name="Role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Role" FromRole="Role" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID_provider" />
+          </Key>
+          <Property Name="ID_provider" Type="Int32" Nullable="false" />
+          <Property Name="Supplier_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Supplier" FromRole="Supplier" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID_category" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Id_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="Client_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Manufacturer">
+          <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturer">
+              <PropertyRef Name="ID_Manufacturer" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Manufacturer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Measure">
+          <End Role="Measure" Type="Self.Measure" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measure">
+              <PropertyRef Name="ID_measure" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Measure" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Order_Items">
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="0..1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Items">
+              <PropertyRef Name="Id_Order_list" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="ID_Order_list" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Order_Status">
+          <End Role="Order_Status" Type="Self.Order_Status" Multiplicity="0..1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Status">
+              <PropertyRef Name="Id_Order_Status" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="Order_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Pickup_Point">
+          <End Role="Pickup_Point" Type="Self.Pickup_Point" Multiplicity="0..1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pickup_Point">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="Address_point_of_issue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_List_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Order_List" Type="Self.Order_List" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order_List">
+              <PropertyRef Name="Id_Order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Product_Name">
+          <End Role="Product_Name" Type="Self.Product_Name" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Name">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="ID_provider" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Supplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="labaEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Manufacturer" EntityType="Self.Manufacturer" />
+          <EntitySet Name="Measure" EntityType="Self.Measure" />
+          <EntitySet Name="Order_Items" EntityType="Self.Order_Items" />
+          <EntitySet Name="Order_List" EntityType="Self.Order_List" />
+          <EntitySet Name="Order_Status" EntityType="Self.Order_Status" />
+          <EntitySet Name="Pickup_Point" EntityType="Self.Pickup_Point" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Product_Name" EntityType="Self.Product_Name" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Role" Association="Self.FK_Employee_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Employee" Association="Self.FK_Order_List_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Manufacturer" Association="Self.FK_Product_Manufacturer">
+            <End Role="Manufacturer" EntitySet="Manufacturer" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Measure" Association="Self.FK_Product_Measure">
+            <End Role="Measure" EntitySet="Measure" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Order_Items" Association="Self.FK_Order_List_Order_Items">
+            <End Role="Order_Items" EntitySet="Order_Items" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Order_Status" Association="Self.FK_Order_List_Order_Status">
+            <End Role="Order_Status" EntitySet="Order_Status" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Pickup_Point" Association="Self.FK_Order_List_Pickup_Point">
+            <End Role="Pickup_Point" EntitySet="Pickup_Point" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_List_Product" Association="Self.FK_Order_List_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Order_List" EntitySet="Order_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Product_Name" Association="Self.FK_Product_Product_Name">
+            <End Role="Product_Name" EntitySet="Product_Name" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Supplier" Association="Self.FK_Product_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище labaModelContainer" CdmEntityContainer="labaEntities1">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="labaModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="ID_category" ColumnName="ID_category" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="labaModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
+                <ScalarProperty Name="Id_Role" ColumnName="Id_Role" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturer">
+            <EntityTypeMapping TypeName="labaModel.Manufacturer">
+              <MappingFragment StoreEntitySet="Manufacturer">
+                <ScalarProperty Name="ID_Manufacturer" ColumnName="ID_Manufacturer" />
+                <ScalarProperty Name="Manufacturer_Name" ColumnName="Manufacturer_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Measure">
+            <EntityTypeMapping TypeName="labaModel.Measure">
+              <MappingFragment StoreEntitySet="Measure">
+                <ScalarProperty Name="ID_measure" ColumnName="ID_measure" />
+                <ScalarProperty Name="Measure_Name" ColumnName="Measure_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Items">
+            <EntityTypeMapping TypeName="labaModel.Order_Items">
+              <MappingFragment StoreEntitySet="Order_Items">
+                <ScalarProperty Name="Id_Order_list" ColumnName="Id_Order_list" />
+                <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+                <ScalarProperty Name="Article_Order" ColumnName="Article_Order" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_List">
+            <EntityTypeMapping TypeName="labaModel.Order_List">
+              <MappingFragment StoreEntitySet="Order_List">
+                <ScalarProperty Name="Id_Order" ColumnName="Id_Order" />
+                <ScalarProperty Name="ID_Order_list" ColumnName="ID_Order_list" />
+                <ScalarProperty Name="Article_Order" ColumnName="Article_Order" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Order_date" ColumnName="Order_date" />
+                <ScalarProperty Name="Delivery_date" ColumnName="Delivery_date" />
+                <ScalarProperty Name="Address_point_of_issue" ColumnName="Address_point_of_issue" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Status">
+            <EntityTypeMapping TypeName="labaModel.Order_Status">
+              <MappingFragment StoreEntitySet="Order_Status">
+                <ScalarProperty Name="Id_Order_Status" ColumnName="Id_Order_Status" />
+                <ScalarProperty Name="Order_Status1" ColumnName="Order_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pickup_Point">
+            <EntityTypeMapping TypeName="labaModel.Pickup_Point">
+              <MappingFragment StoreEntitySet="Pickup_Point">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Mail_Index" ColumnName="Mail_Index" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Number_Address" ColumnName="Number_Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="labaModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Name">
+            <EntityTypeMapping TypeName="labaModel.Product_Name">
+              <MappingFragment StoreEntitySet="Product_Name">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Product_Name1" ColumnName="Product_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="labaModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+                <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="labaModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="ID_provider" ColumnName="ID_provider" />
+                <ScalarProperty Name="Supplier_Name" ColumnName="Supplier_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="labaModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
